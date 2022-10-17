@@ -34,7 +34,6 @@ const createWorkout = async (req, res) => {
     res.status(400).json({ error: error.message })
   }
 }
-
 //delete a workout
 const deleteWorkout = async (req, res) => {
   const { id } = req.params
