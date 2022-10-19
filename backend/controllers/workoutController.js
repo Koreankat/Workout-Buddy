@@ -1,20 +1,18 @@
 const Workout = require("../models/workoutModel")
-const { ObjectId } = require("mongodb")
 const mongoose = require("mongoose")
 
-//get all workout
+//GET all workouts
 const getAllWorkouts = async (req, res) => {
   const workouts = await Workout.find({}).sort({ createdAt: -1 })
-
   res.status(200).json(workouts)
 }
-//get  a single workout
+
+//GET a single workout
 const getWorkout = async (req, res) => {
   const { id } = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({ error: "no such id" })
   }
-
   const workout = await Workout.findById({ _id: id })
   if (!workout) {
     res.status(404).json({ error: "no such workout" })
@@ -25,8 +23,6 @@ const getWorkout = async (req, res) => {
 //create a new workout
 const createWorkout = async (req, res) => {
   const { title, reps, load } = req.body
-
-  //add doc to db
   try {
     const workout = await Workout.create({ title, reps, load })
     res.status(200).json(workout)
@@ -34,6 +30,7 @@ const createWorkout = async (req, res) => {
     res.status(400).json({ error: error.message })
   }
 }
+
 //delete a workout
 const deleteWorkout = async (req, res) => {
   const { id } = req.params
@@ -47,7 +44,7 @@ const deleteWorkout = async (req, res) => {
   res.status(200).json(workout)
 }
 
-//update a workout
+//update workout
 const updateWorkout = async (req, res) => {
   const { id } = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -55,11 +52,10 @@ const updateWorkout = async (req, res) => {
   }
   const workout = await Workout.findByIdAndUpdate({ _id: id }, { ...req.body })
   if (!workout) {
-    res.status(404).json({ error: "no such workout" })
+    res.status(400).json({ error: "no such workout" })
   }
   res.status(200).json(workout)
 }
-
 module.exports = {
   getAllWorkouts,
   getWorkout,
