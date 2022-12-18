@@ -11,8 +11,12 @@ body {
   margin: 0;
   font-family: "Poppins";
 }
+
 header {
   background: #fff;
+}
+.clicked {
+  display: none;
 }
 header .container {
   max-width: 1400px;
@@ -56,10 +60,21 @@ header a {
   font-size: 0.9em;
   color: #555;
 }
+
 .workout-details span {
   position: absolute;
   top: 20px;
   right: 20px;
+  cursor: pointer;
+  background: #f1f1f1;
+  padding: 6px;
+  border-radius: 50%;
+  color: #333;
+}
+.edit {
+  position: absolute;
+  top: 20px;
+  right: 60px;
   cursor: pointer;
   background: #f1f1f1;
   padding: 6px;

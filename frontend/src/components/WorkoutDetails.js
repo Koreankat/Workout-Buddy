@@ -1,15 +1,20 @@
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
+import { Link } from "react-router-dom"
+import WorkoutUpdate from "./WorkoutUpdate"
 
 //date fns
 import formatDistanceToNow from "date-fns/formatDistanceToNow"
-
-const WorkoutDetails = ({ workout }) => {
+import { useState } from "react"
+const WorkoutDetails = ({ workout, setIsUpdating }) => {
   const { dispatch } = useWorkoutsContext()
 
-  const handleClick = async () => {
-    const response = await fetch("/api/workouts/" + workout._id, {
-      method: "DELETE",
-    })
+  const handleDelete = async () => {
+    const response = await fetch(
+      "https://workout-1xok.onrender.com/api/workouts/" + workout._id,
+      {
+        method: "DELETE",
+      }
+    )
     const json = await response.json()
 
     if (response.ok) {
@@ -18,22 +23,37 @@ const WorkoutDetails = ({ workout }) => {
   }
 
   return (
-    <div className='workout-details'>
-      <h4>{workout.title}</h4>
-      <p>
-        <strong>Load (kg): </strong>
-        {workout.load}
-      </p>
-      <p>
-        <strong>Number of reps: </strong>
-        {workout.reps}
-      </p>
-      <p>
-        {formatDistanceToNow(new Date(workout.createdAt), { addSuffix: true })}
-      </p>
-      <span className='material-symbols-outlined' onClick={handleClick}>
-        delete
-      </span>
+    <div>
+      <div className={`workout-details`}>
+        <h4>{workout.title}</h4>
+        <p>
+          <strong>Load (kg): </strong>
+          {workout.load}
+        </p>
+        <p>
+          <strong>Number of reps: </strong>
+          {workout.reps}
+        </p>
+        <p>
+          {formatDistanceToNow(new Date(workout.createdAt), {
+            addSuffix: true,
+          })}
+        </p>
+
+        <span className='material-symbols-outlined' onClick={handleDelete}>
+          delete
+        </span>
+        <Link to='/workout'>
+          <p
+            className='edit'
+            onClick={() => {
+              setIsUpdating(workout._id)
+            }}
+          >
+            Edit
+          </p>
+        </Link>
+      </div>
     </div>
   )
 }
