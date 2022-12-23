@@ -11,12 +11,8 @@ body {
   margin: 0;
   font-family: "Poppins";
 }
-
 header {
   background: #fff;
-}
-.clicked {
-  display: none;
 }
 header .container {
   max-width: 1400px;
@@ -60,21 +56,10 @@ header a {
   font-size: 0.9em;
   color: #555;
 }
-
 .workout-details span {
   position: absolute;
   top: 20px;
   right: 20px;
-  cursor: pointer;
-  background: #f1f1f1;
-  padding: 6px;
-  border-radius: 50%;
-  color: #333;
-}
-.edit {
-  position: absolute;
-  top: 20px;
-  right: 60px;
   cursor: pointer;
   background: #f1f1f1;
   padding: 6px;
@@ -115,4 +100,22 @@ div.error {
 }
 input.error {
   border: 1px solid var(--error);
+}
+
+/* navbar */
+nav {
+  display: flex;
+  align-items: center;
+}
+nav a {
+  margin-left: 10px;
+}
+/* auth forms */
+form.signup,
+form.login {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
 }

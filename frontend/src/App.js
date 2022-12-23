@@ -4,6 +4,8 @@ import { useState } from "react"
 //pages & components
 import Home from "./pages/Home"
 import Navbar from "./components/Navbar"
+import Login from "./pages/Login"
+import Signup from "./pages/signup"
 import WorkoutUpdate from "./components/WorkoutUpdate"
 
 function App() {
@@ -15,12 +17,10 @@ function App() {
         <Navbar />
         <div className='pages'>
           <Routes>
-            <Route
-              path='/'
-              element={
-                <Home isUpdating={isUpdating} setIsUpdating={setIsUpdating} />
-              }
-            ></Route>
+            <Route path='/' element={<Home />}></Route>
+            <Route path='/login' element={<Login />}></Route>
+            <Route path='/signup' element={<Signup />}></Route>
+
             {/* <Route
               path='/workout'
               element={<WorkoutUpdate isUpdating={isUpdating} />}
