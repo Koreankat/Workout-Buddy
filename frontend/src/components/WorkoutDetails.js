@@ -43,7 +43,7 @@ const WorkoutDetails = ({ workout, setIsUpdating }) => {
         <span className='material-symbols-outlined' onClick={handleDelete}>
           delete
         </span>
-        <Link to='/workout'>
+        {/* <Link to='/workout'>
           <p
             className='edit'
             onClick={() => {
@@ -52,7 +52,7 @@ const WorkoutDetails = ({ workout, setIsUpdating }) => {
           >
             Edit
           </p>
-        </Link>
+        </Link> */}
       </div>
     </div>
   )

@@ -21,10 +21,10 @@ function App() {
                 <Home isUpdating={isUpdating} setIsUpdating={setIsUpdating} />
               }
             ></Route>
-            <Route
+            {/* <Route
               path='/workout'
               element={<WorkoutUpdate isUpdating={isUpdating} />}
-            ></Route>
+            ></Route> */}
           </Routes>
         </div>
       </BrowserRouter>

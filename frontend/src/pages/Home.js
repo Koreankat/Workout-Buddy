@@ -12,9 +12,7 @@ const Home = ({ isUpdating, setIsUpdating }) => {
 
   useEffect(() => {
     const fetchWorkouts = async () => {
-      const response = await fetch(
-        "https://workout-1xok.onrender.com/api/workouts"
-      )
+      const response = await fetch("/api/workouts")
       const json = await response.json()
 
       if (response.ok) {
