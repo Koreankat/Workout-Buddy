@@ -1,26 +1,34 @@
-import { useWorkoutsContext } from "../hooks/useWorkoutsContext"
-import { Link } from "react-router-dom"
-import WorkoutUpdate from "./WorkoutUpdate"
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
+import { Link } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
+import WorkoutUpdate from "./WorkoutUpdate";
 
 //date fns
-import formatDistanceToNow from "date-fns/formatDistanceToNow"
-import { useState } from "react"
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { useState } from "react";
 const WorkoutDetails = ({ workout, setIsUpdating }) => {
-  const { dispatch } = useWorkoutsContext()
+  const { user } = useAuthContext();
+  const { dispatch } = useWorkoutsContext();
 
   const handleDelete = async () => {
+    if (!user) {
+      return;
+    }
     const response = await fetch(
       "https://workout-1xok.onrender.com/api/workouts/" + workout._id,
       {
         method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${user.token}`,
+        },
       }
-    )
-    const json = await response.json()
+    );
+    const json = await response.json();
 
     if (response.ok) {
-      dispatch({ type: "DELETE_WORKOUT", payload: json })
+      dispatch({ type: "DELETE_WORKOUT", payload: json });
     }
-  }
+  };
 
   return (
     <div>
@@ -40,7 +48,7 @@ const WorkoutDetails = ({ workout, setIsUpdating }) => {
           })}
         </p>
 
-        <span className='material-symbols-outlined' onClick={handleDelete}>
+        <span className="material-symbols-outlined" onClick={handleDelete}>
           delete
         </span>
         {/* <Link to='/workout'>
@@ -55,7 +63,7 @@ const WorkoutDetails = ({ workout, setIsUpdating }) => {
         </Link> */}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default WorkoutDetails
+export default WorkoutDetails;

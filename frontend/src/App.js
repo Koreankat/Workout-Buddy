@@ -1,25 +1,36 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { useState } from "react"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useAuthContext } from "./hooks/useAuthContext";
+import { useState } from "react";
 
 //pages & components
-import Home from "./pages/Home"
-import Navbar from "./components/Navbar"
-import Login from "./pages/Login"
-import Signup from "./pages/signup"
-import WorkoutUpdate from "./components/WorkoutUpdate"
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
+import Login from "./pages/Login";
+import Signup from "./pages/signup";
+import WorkoutUpdate from "./components/WorkoutUpdate";
 
 function App() {
-  const [isUpdating, setIsUpdating] = useState(1)
+  const [isUpdating, setIsUpdating] = useState(1);
+  const { user } = useAuthContext();
 
   return (
-    <div className='App'>
+    <div className="App">
       <BrowserRouter>
         <Navbar />
-        <div className='pages'>
+        <div className="pages">
           <Routes>
-            <Route path='/' element={<Home />}></Route>
-            <Route path='/login' element={<Login />}></Route>
-            <Route path='/signup' element={<Signup />}></Route>
+            <Route
+              path="/"
+              element={user ? <Home /> : <Navigate to="/login" />}
+            ></Route>
+            <Route
+              path="/login"
+              element={!user ? <Login /> : <Navigate to="/" />}
+            ></Route>
+            <Route
+              path="/signup"
+              element={!user ? <Signup /> : <Navigate to="/" />}
+            ></Route>
 
             {/* <Route
               path='/workout'
@@ -29,7 +40,7 @@ function App() {
         </div>
       </BrowserRouter>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
